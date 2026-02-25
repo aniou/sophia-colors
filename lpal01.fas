@@ -1,0 +1,111 @@
+
+; lpal01
+; wczytuje palety do sophii - uruchamiać pod SpartaDos X
+;
+; autor: Piotr Meyer <aniou+atari@smutek.pl>, 2026
+;
+; 1 - NTSC        - emulator Altirra
+; 2 - szara       - opracowanie własne
+; 3 - zielona     - opracowanie własne
+; 4 - bursztynowa - opracowanie własne
+
+PRINTF       smb 'PRINTF'
+U_GETKEY     smb 'U_GETKEY'
+
+PRIOR        equ $d01b
+GRACTL       equ $d01d
+SOPHIA       equ $d01e
+PALDATA      equ $d01f
+
+src          equ $FE  ; word
+
+; wyswietla numer,  ustawia wektory, laduje palete
+lpal        .macro name, srcvec
+        	 jsr PRINTF
+             dta :name, b($00)
+             lda :srcvec
+             sta src
+             lda :srcvec+1
+             sta src+1
+             jsr l_pal
+            .endm
+
+; START 
+             blk  reloc main
+here         equ  *
+             jsr  msg_start
+             sei
+             lda  #$80          ; enable write to registers
+             sta  GRACTL
+             lda  GRACTL        ; disable write - clear palette counter
+             and  #$7E
+             sta  GRACTL
+             lda  #$80          ; enable write again
+             sta  GRACTL
+
+             lda  SOPHIA
+             cmp  #$53          ; 'S'
+             beq  @+
+             jsr  msg_notfound
+             jmp  quit
+             rts
+
+@            lpal '01 - ntsc\n',  p01v  ; NTSC
+             lpal '02 - gray\n',  p02v  ; szara
+             lpal '03 - green\n', p03v  ; zielona
+             lpal '04 - amber\n', p04v  ; bursztynowa
+
+quit         lda  GRACTL
+             and  #$7E
+             sta  GRACTL
+             cli
+             rts
+
+; wczytuje palete jako 3x256 bajtow
+l_pal        equ *
+             jsr l_page
+             inc src+1    ; next page
+             jsr l_page
+             inc src+1    ; next page
+             jsr l_page
+             rts
+
+; wczytuje 256 bajtow palety
+l_page       equ *
+             ldy #00
+@            lda (src), y
+             asl
+             asl
+             sta PALDATA
+             iny
+             bne @-
+             rts
+
+; tu komunikaty, zeby nie zasmiecac deasemblacji
+msg_start    equ *
+             jsr  PRINTF
+             dta  'SOPHIA color set 01\n', b($00)
+             rts
+
+msg_notfound equ *
+             jsr  PRINTF
+             dta  'ERR: SOPHIA not found\n', b($00)
+             rts
+
+; wektory i zmienne pomocnicze
+p01v    dta v(p01)
+p02v    dta v(p02)
+p03v    dta v(p03)
+p04v    dta v(p04)
+
+
+p01     ins 'pal/rgb18-ntsc-xe.pal'
+p02     ins 'pal/rgb18-gray.pal'
+p03     ins 'pal/rgb18-green.pal'
+p04     ins 'pal/rgb18-amber.pal'
+
+; blocks for address and symbol update
+        blk update symbols
+        blk update addresses
+
+        end

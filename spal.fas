@@ -1,0 +1,74 @@
+
+; spal v1
+; ustawia paletę sophii - uruchamiać pod SpartaDos X
+; argument: 0 .. 15
+; autor: Piotr Meyer <aniou+atari@smutek.pl>, 2026
+
+
+PRINTF       smb 'PRINTF'
+U_GETNUM     smb 'U_GETNUM'
+
+PRIOR        equ $d01b
+GRACTL       equ $d01d
+SOPHIA       equ $d01e
+
+; START 
+             blk  reloc main
+             jsr  U_GETNUM
+             bne  @+
+             jsr  msg_help
+             rts
+
+@            and  #$0F         ; only $0-$F that matters
+             sta  pal          ; keep it safe
+             sei               ; prevent irq routines from meddling with sophia
+             lda  #$80         ; enable write to registers
+             sta  GRACTL
+
+             lda  SOPHIA
+             cmp  #$53         ; 'S'
+             beq  @+
+             cli
+             jsr  msg_notfound
+             jmp  quit
+
+@            lda  PRIOR
+             and  #$F0         ; keep resolution intact
+             ora  pal          ; combine with palette
+             sta  val
+             sta  PRIOR
+             jsr  msg_info
+
+quit         lda  GRACTL
+             and  #$7E
+             sta  GRACTL
+             cli
+             rts
+
+; messages here, to de-cluter code for disasm
+msg_help     equ *
+             jsr  PRINTF
+             dta  'SPAL 0|1|..|15\n', b(0)
+             rts
+
+msg_notfound equ *
+             jsr  PRINTF
+             dta  'SOPHIA not found\n', b(0)
+             rts
+
+msg_info     equ *
+             jsr  PRINTF
+             dta  'SOPHIA palette: %2b by val $%2x\n', b(0)
+             dta  v(pal)
+             dta  v(val)
+             rts
+
+; vectors and variables
+pal          dta b(0)
+val          dta b(0)
+
+; blocks for address and symbol update
+             blk update symbols
+             blk update addresses
+
+             end
