@@ -99,10 +99,10 @@ p03v    dta v(p03)
 p04v    dta v(p04)
 
 
-p01     ins 'pal/rgb18-ntsc-xe.pal'
-p02     ins 'pal/rgb18-gray.pal'
-p03     ins 'pal/rgb18-green.pal'
-p04     ins 'pal/rgb18-amber.pal'
+p01     ins 'act/rgb18-ntsc-xe.act'
+p02     ins 'act/rgb18-gray.act'
+p03     ins 'act/rgb18-green.act'
+p04     ins 'act/rgb18-amber.act'
 
 ; blocks for address and symbol update
         blk update symbols
