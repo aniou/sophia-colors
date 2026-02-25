@@ -7,7 +7,11 @@ A custom palettes for Sophia GTIA replacement.
 Both programs should be run from [SpartaDos X](https://sdx.atari8.info/index.php).
 
 First one, ``lpal01.com``, loads four custom palettes into a Sophia RAM: 
-NTSC (1), gray (2), green (3) and amber (4) ones.
+0. *built-in default, intact*
+1. NTSC
+2. Gray
+3. Green
+4. Amber
 
 Second tool, ``spal.com`` should be called with number ``0`` to ``15`` to 
 select an pre-loaded palette. 
@@ -32,7 +36,7 @@ mads spal.fas   -o:spal.com
 
 Provided by ``lpal01.com``. Monochrome ones were created manually, they don't
 emulate any existing CRT monitor. Treat them as a free variation about old
-memories ;)
+memories.
 
 ![palette set 1](lpal01.png)
 
