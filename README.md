@@ -7,6 +7,7 @@ A custom palettes for Sophia GTIA replacement.
 Both programs should be run from [SpartaDos X](https://sdx.atari8.info/index.php).
 
 First one, ``lpal01.com``, loads four custom palettes into a Sophia RAM: 
+
 0. *built-in default, intact*
 1. NTSC
 2. Gray
