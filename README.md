@@ -2,8 +2,8 @@
 
 A custom palettes for Sophia GTIA replacement. 
 
-There is also [another "spal" tool](https://www.atari.org.pl/forum/viewtopic.php?id=19395) by `mono`,
-with very similar funcionality and larger number of palettes available.
+There is also [another "spal" tool](https://www.atari.org.pl/forum/viewtopic.php?id=19395) by 
+[mono](http://mono.i-demo.pl/) with very similar funcionality and larger number of palettes available.
 
 ## Tools
 
