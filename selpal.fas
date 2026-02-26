@@ -1,5 +1,5 @@
 
-; spal v1
+; selpal v1
 ; ustawia paletę sophii - uruchamiać pod SpartaDos X
 ; argument: 0 .. 15
 ; autor: Piotr Meyer <aniou+atari@smutek.pl>, 2026
@@ -48,7 +48,7 @@ quit         lda  GRACTL
 ; messages here, to de-cluter code for disasm
 msg_help     equ *
              jsr  PRINTF
-             dta  'SPAL 0|1|..|15\n', b(0)
+             dta  'SELPAL 0|1|..|15\n', b(0)
              rts
 
 msg_notfound equ *

@@ -2,7 +2,7 @@
 
 A custom palettes for Sophia GTIA replacement. 
 
-There is also [another "spal" tool](https://www.atari.org.pl/forum/viewtopic.php?id=19395) by 
+There is also [an "spal" tool](https://www.atari.org.pl/forum/viewtopic.php?id=19395) by 
 [mono](http://mono.i-demo.pl/) with very similar funcionality and larger number of palettes available.
 
 ## Tools
@@ -17,12 +17,12 @@ First one, ``lpal01.com``, loads four custom palettes into a Sophia RAM:
 3. Green
 4. Amber
 
-Second tool, ``spal.com`` should be called with number ``0`` to ``15`` to 
+Second tool, ``selpal.com`` should be called with number ``0`` to ``15`` to 
 select an pre-loaded palette. 
 
 **Beware**: selecting "empty" palette render system a slightly inconvenient, 
 i.e. with black background and black letters. In such case don't push ``RESET``!
-Simply type a ``spal 0`` command, to restore default behaviour.
+Simply type a ``selpal 0`` command, to restore default behaviour.
 
 Palettes persists between reboots but disappears after a power-off (they 
 are located in Sophia's internal memory).
@@ -33,7 +33,7 @@ Both binaries were created with [MAD-ASSEMBLER](https://mads.atari8.info/mads.ht
 
 ```
 mads lpal01.fas -o:lpal01.com
-mads spal.fas   -o:spal.com
+mads selpal.fas -o:selpal.com
 ```
 
 ## Palette set 1
